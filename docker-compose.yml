@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  sandbox-task:
+  sandbox_task:
     build:
       context: ./
       dockerfile: Dockerfile

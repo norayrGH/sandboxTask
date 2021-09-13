@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: task
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false

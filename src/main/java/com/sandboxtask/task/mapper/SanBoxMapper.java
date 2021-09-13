@@ -7,9 +7,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class SanBoxMapper {
 
-
   public static SandboxUserResponse mapToResponse(User sandboxUser) {
-
-    return null;
+    return SandboxUserResponse.builder()
+        .firstName(sandboxUser.getFirstName())
+        .lastName(sandboxUser.getLastName())
+        .emailAddress(sandboxUser.getEmailAddress())
+        .uuid(sandboxUser.getUuid())
+        .build();
   }
 }

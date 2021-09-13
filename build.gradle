@@ -7,9 +7,6 @@ plugins {
 group = 'com.sandboxTask'
 sourceCompatibility = '11'
 
-
-
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -28,6 +25,9 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:testcontainers:1.16.0"
+    testImplementation "org.testcontainers:postgresql:1.16.0"
+    testImplementation "org.testcontainers:junit-jupiter:1.16.0"
 }
 
 test {

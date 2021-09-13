@@ -6,9 +6,12 @@ import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;
 import com.sandboxtask.task.entity.User;
 import com.sandboxtask.task.mapper.SanBoxMapper;
 import com.sandboxtask.task.service.SandboxUserService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +32,14 @@ public class SandBoxUserController {
   private final SandboxUserService sandboxUserService;
 
   @GetMapping()
-  public Page<User> getAllUsers(Pageable pageable) {
-    return sandboxUserService.findAll(pageable);
+  public Page<SandboxUserResponse> getAllUsers( Pageable pageable) {
+    log.info("Handling request for getting all SandBoxUsers with page size {} and page number {} ",
+        pageable.getPageSize(), pageable.getPageNumber());
+    Page<User> all = sandboxUserService.findAll(pageable);
+    List<SandboxUserResponse> collect = all.stream()
+        .map(SanBoxMapper::mapToResponse)
+        .collect(Collectors.toList());
+    return new PageImpl<>(collect, pageable, all.getTotalElements());
   }
 
   @PostMapping()
