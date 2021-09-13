@@ -1,16 +1,20 @@
 spring:
+  application:
+    name: task
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://${JDBC_URL:localhost}:${JDBC_PORT:5432}/${DATABASE_NAME:sandbox}
     driver-class-name: org.postgresql.Driver
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     username: ${JDBC_USERNAME:sandbox}
     password: ${JDBC_PASSWORD:sandbox}
-    platform: postgres
   flyway:
     enabled: false
     baseline-on-migrate: true
     baseline-version: 0
     table: migrations
 
+server:
+  port: ${SERVER_PORT:8080}

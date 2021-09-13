@@ -1,10 +1,10 @@
 HELP.md
 target/
-gradle/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+gradlew.bat
+gradlew
 ### STS ###
 .apt_generated
 .classpath
@@ -16,6 +16,7 @@ gradle/
 
 ### IntelliJ IDEA ###
 .idea
+.gradle
 *.iws
 *.iml
 *.ipr

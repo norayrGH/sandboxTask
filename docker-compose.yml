@@ -1,7 +1,9 @@
 version: '3.1'
 services:
   sandbox-task:
-    build: ./
+    build:
+      context: ./
+      dockerfile: Dockerfile
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/postgres
       - SPRING_DATASOURCE_USERNAME=sandbox
