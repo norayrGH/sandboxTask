@@ -1,5 +1,6 @@
-package com.sandboxtask.task.dto;
+package com.sandboxtask.task.dto.create;
 
+import com.sandboxtask.task.dto.SandboxUserKidsCommand;
 import java.util.List;
 import lombok.Data;
 
