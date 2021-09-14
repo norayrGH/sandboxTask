@@ -97,7 +97,6 @@ class UserControllerTest extends BaseTestConfig {
 
   @Test
   void updateUser() {
-
     var user = new User();
     user.setEmailAddress("test");
     user.setFirstName("test");
@@ -114,6 +113,25 @@ class UserControllerTest extends BaseTestConfig {
     Assertions.assertEquals(response.getBody().getFirstName(), updateCommand.getBody().getFirstName());
     Assertions.assertEquals(response.getBody().getLastName(), updateCommand.getBody().getLastName());
     Assertions.assertNotNull(response.getBody().getId());
+  }
+
+  @Test
+  void deleteUser() {
+    var user = new User();
+    user.setEmailAddress("test");
+    user.setFirstName("test");
+    user.setLastName("test");
+    var userKid = new UserKid();
+    User saveUser = userRepository.save(user);
+    userKid.setUser(saveUser);
+    userKid.setFirstName("Valodik");
+    userKid.setAge(16);
+    userKidRepository.save(userKid);
+
+    this.restTemplate.delete(LOCAL_HOST + port + "/users/{userId}", saveUser.getId());
+    Assertions.assertTrue(userKidRepository.findByUserId(saveUser.getId()).isEmpty());
+    Assertions.assertTrue(userRepository.findUserById(saveUser.getId()).isEmpty());
+
   }
 
 }

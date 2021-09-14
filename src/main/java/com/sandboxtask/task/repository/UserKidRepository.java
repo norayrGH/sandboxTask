@@ -12,5 +12,6 @@ public interface UserKidRepository extends JpaRepository<UserKid, Long> {
 
   Page<UserKid> findByUserId(Long userId, Pageable pageable);
   List<UserKid> findByUserId(Long userId);
+  void removeAllByUserId(Long userId);
   Optional<UserKid> findByIdAndUserId(Long id, Long userId);
 }

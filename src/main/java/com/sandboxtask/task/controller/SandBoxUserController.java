@@ -53,6 +53,7 @@ public class SandBoxUserController {
   @PutMapping("/{userId}")
   public ResponseEntity<SandboxUserResponse> updateUser(@PathVariable Long userId,
       @RequestBody SandboxUserUpdateCommand userUpdateCommand) {
+    log.info("Handling request for updating User with this command {}", userUpdateCommand);
     User update = sandboxUserService.updateSandboxUser(userId, userUpdateCommand);
     SandboxUserResponse response = SanBoxMapper.mapToResponse(update);
     return ResponseEntity.ok(response);
@@ -61,9 +62,9 @@ public class SandBoxUserController {
 
   @DeleteMapping("/{userId}")
   public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+    log.info("Handling request for removing User with this id {}", userId);
     sandboxUserService.deleteSandboxUser(userId);
     return ResponseEntity.ok().build();
-
   }
 
 
