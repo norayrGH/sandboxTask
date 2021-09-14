@@ -3,8 +3,12 @@ package com.sandboxtask.task.service;
 import com.sandboxtask.task.dto.create.SandboxUserCreationCommand;
 import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;
 import com.sandboxtask.task.entity.User;
+import com.sandboxtask.task.entity.UserKid;
+import com.sandboxtask.task.repository.UserKidRepository;
 import com.sandboxtask.task.repository.UserRepository;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,16 +22,25 @@ import org.springframework.stereotype.Service;
 public class SandboxUserServiceImpl implements SandboxUserService {
 
   private final UserRepository userRepository;
+  private final UserKidRepository userKidRepository;
 
   @Override
   public User createSandboxUser(SandboxUserCreationCommand createCommand) {
-    log.info("Trying to create user from command");
     var user = new User();
     user.setEmailAddress(createCommand.getEmailAddress());
     user.setFirstName(createCommand.getFirstName());
     user.setLastName(createCommand.getLastName());
-
-    return userRepository.save(user);
+    User savedUser = userRepository.save(user);
+    List<UserKid> newKids = createCommand.getKids().stream()
+        .map(kid -> {
+          var newKid = new UserKid();
+          newKid.setFirstName(kid.getFirstName());
+          newKid.setAge(kid.getAge());
+          newKid.setUser(savedUser);
+          return newKid;
+        }).collect(Collectors.toList());
+    userKidRepository.saveAll(newKids);
+    return savedUser;
   }
 
   @Override

@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SandboxUserResponse {
 
-  private String firstName;
-  private String lastName;
-  private String emailAddress;
+  private Long id;
   private UUID uuid;
+  private String lastName;
+  private String firstName;
+  private String emailAddress;
 
 }

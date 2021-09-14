@@ -31,8 +31,8 @@ public class SandBoxUserController {
 
   private final SandboxUserService sandboxUserService;
 
-  @GetMapping()
-  public Page<SandboxUserResponse> getAllUsers( Pageable pageable) {
+  @GetMapping
+  public Page<SandboxUserResponse> getAllUsers(Pageable pageable) {
     log.info("Handling request for getting all SandBoxUsers with page size {} and page number {} ",
         pageable.getPageSize(), pageable.getPageNumber());
     Page<User> all = sandboxUserService.findAll(pageable);
@@ -42,8 +42,9 @@ public class SandBoxUserController {
     return new PageImpl<>(collect, pageable, all.getTotalElements());
   }
 
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<SandboxUserResponse> createUser(@RequestBody SandboxUserCreationCommand creationCommand) {
+    log.info("Handling request for creating User with this command {}", creationCommand);
     User sandboxUser = sandboxUserService.createSandboxUser(creationCommand);
     SandboxUserResponse response = SanBoxMapper.mapToResponse(sandboxUser);
     return ResponseEntity.ok(response);
