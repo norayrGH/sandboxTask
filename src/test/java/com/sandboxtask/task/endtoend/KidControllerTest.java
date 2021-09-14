@@ -5,6 +5,7 @@ import static org.jeasy.random.FieldPredicates.named;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sandboxtask.task.dto.SandboxUserKidsCommand;
 import com.sandboxtask.task.dto.response.SandboxKidResponse;
 import com.sandboxtask.task.entity.User;
 import com.sandboxtask.task.entity.UserKid;
@@ -76,37 +77,33 @@ class KidControllerTest extends BaseTestConfig {
           Assertions.assertEquals(kidsList.get(index).getAge(), userKids.get(index).getAge());
           Assertions.assertEquals(kidsList.get(index).getFirstName(), userKids.get(index).getFirstName());
           Assertions.assertNotNull(kidsList.get(index).getId());
-          Assertions.assertEquals(kidsList.get(index).getParentInfo().getId(),savedUser.getId());
+          Assertions.assertEquals(kidsList.get(index).getParentInfo().getId(), savedUser.getId());
         });
   }
 
-/*
+
   @Test
-  void createUser() {
+  void createKid() {
+    var user = new User();
+    user.setEmailAddress("test");
+    user.setFirstName("test");
+    user.setLastName("test");
+    User savedUser = userRepository.save(user);
     EasyRandom easyRandom = new EasyRandom(new EasyRandomParameters());
-    SandboxUserCreationCommand creationCommand = easyRandom.nextObject(SandboxUserCreationCommand.class);
+    SandboxUserKidsCommand creationCommand = easyRandom.nextObject(SandboxUserKidsCommand.class);
 
-    SandboxUserResponse response = this.restTemplate.postForObject(LOCAL_HOST + port + "/users?page=0&size=10",
-        creationCommand, SandboxUserResponse.class);
+    SandboxKidResponse response = this.restTemplate.postForObject(LOCAL_HOST + port + "/users/{userId}/kids",
+        creationCommand, SandboxKidResponse.class, savedUser.getId());
 
-    Assertions.assertEquals(response.getEmailAddress(), creationCommand.getEmailAddress());
+    Assertions.assertEquals(response.getAge(), creationCommand.getAge());
     Assertions.assertEquals(response.getFirstName(), creationCommand.getFirstName());
-    Assertions.assertEquals(response.getLastName(), creationCommand.getLastName());
+    Assertions.assertEquals(response.getParentInfo().getId(), savedUser.getId());
     Assertions.assertNotNull(response.getId());
-    List<UserKid> kidsByUserId = userKidRepository.findByUserId(response.getId());
-    List<SandboxUserKidsCommand> kidsToCreate = creationCommand.getKids();
-    IntStream
-        .range(0, kidsByUserId.size())
-        .boxed()
-        .forEach(index -> {
-          Assertions.assertEquals(kidsByUserId.get(index).getAge(), kidsToCreate.get(index).getAge());
-          Assertions.assertEquals(kidsByUserId.get(index).getFirstName(), kidsToCreate.get(index).getFirstName());
-          Assertions.assertEquals(kidsByUserId.get(index).getUser().getId(), response.getId());
-        });
+
   }
 
 
-  @Test
+ /* @Test
   void updateUser() {
     var user = new User();
     user.setEmailAddress("test");
