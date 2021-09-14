@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sandboxtask.task.dto.SandboxUserKidsCommand;
 import com.sandboxtask.task.dto.create.SandboxUserCreationCommand;
 import com.sandboxtask.task.dto.response.SandboxUserResponse;
+import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;
 import com.sandboxtask.task.entity.User;
 import com.sandboxtask.task.entity.UserKid;
 import com.sandboxtask.task.repository.UserKidRepository;
@@ -20,6 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 class UserControllerTest extends BaseTestConfig {
 
@@ -62,7 +66,6 @@ class UserControllerTest extends BaseTestConfig {
     cars1.forEach(echUser -> {
       Assertions.assertEquals(echUser.getEmailAddress(), user.getEmailAddress());
       Assertions.assertEquals(echUser.getFirstName(), user.getFirstName());
-      Assertions.assertEquals(echUser.getUuid(), user.getUuid());
     });
   }
 
@@ -78,7 +81,6 @@ class UserControllerTest extends BaseTestConfig {
     Assertions.assertEquals(response.getEmailAddress(), creationCommand.getEmailAddress());
     Assertions.assertEquals(response.getFirstName(), creationCommand.getFirstName());
     Assertions.assertEquals(response.getLastName(), creationCommand.getLastName());
-    Assertions.assertNotNull(response.getUuid());
     Assertions.assertNotNull(response.getId());
     List<UserKid> kidsByUserId = userKidRepository.findByUserId(response.getId());
     List<SandboxUserKidsCommand> kidsToCreate = creationCommand.getKids();
@@ -90,6 +92,28 @@ class UserControllerTest extends BaseTestConfig {
           Assertions.assertEquals(kidsByUserId.get(index).getFirstName(), kidsToCreate.get(index).getFirstName());
           Assertions.assertEquals(kidsByUserId.get(index).getUser().getId(), response.getId());
         });
+  }
+
+
+  @Test
+  void updateUser() {
+
+    var user = new User();
+    user.setEmailAddress("test");
+    user.setFirstName("test");
+    user.setLastName("test");
+    User saveUser = userRepository.save(user);
+    EasyRandom easyRandom = new EasyRandom(new EasyRandomParameters());
+    HttpEntity<SandboxUserUpdateCommand> updateCommand = new HttpEntity<>(
+        easyRandom.nextObject(SandboxUserUpdateCommand.class));
+    ResponseEntity<SandboxUserUpdateCommand> response = this.restTemplate.exchange(
+        LOCAL_HOST + port + "/users/" + saveUser.getId(),
+        HttpMethod.PUT, updateCommand, SandboxUserUpdateCommand.class);
+
+    Assertions.assertEquals(response.getBody().getEmailAddress(), updateCommand.getBody().getEmailAddress());
+    Assertions.assertEquals(response.getBody().getFirstName(), updateCommand.getBody().getFirstName());
+    Assertions.assertEquals(response.getBody().getLastName(), updateCommand.getBody().getLastName());
+    Assertions.assertNotNull(response.getBody().getId());
   }
 
 }

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class SandboxUserResponse {
 
   private Long id;
-  private UUID uuid;
   private String lastName;
   private String firstName;
   private String emailAddress;

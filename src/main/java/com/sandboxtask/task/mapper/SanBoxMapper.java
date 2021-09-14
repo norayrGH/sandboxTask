@@ -12,7 +12,6 @@ public class SanBoxMapper {
         .firstName(sandboxUser.getFirstName())
         .lastName(sandboxUser.getLastName())
         .emailAddress(sandboxUser.getEmailAddress())
-        .uuid(sandboxUser.getUuid())
         .id(sandboxUser.getId())
         .build();
   }

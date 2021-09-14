@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface SandboxUserService {
 
-  User createSandboxUser(SandboxUserCreationCommand createCommand);
-
   Page<User> findAll(Pageable pageable);
 
-  User update(Long userId, SandboxUserUpdateCommand userUpdateCommand);
+  User createSandboxUser(SandboxUserCreationCommand createCommand);
 
-  void deleteUser(Long userId);
+  User updateSandboxUser(Long userId, SandboxUserUpdateCommand userUpdateCommand);
+
+  void deleteSandboxUser(Long userId);
 }

@@ -49,7 +49,7 @@ public class SandboxUserServiceImpl implements SandboxUserService {
   }
 
   @Override
-  public User update(Long userId, SandboxUserUpdateCommand userUpdateCommand) {
+  public User updateSandboxUser(Long userId, SandboxUserUpdateCommand userUpdateCommand) {
     Optional<User> userById = userRepository.findUserById(userId);
     if (userById.isPresent()) {
       User user = userById.get();
@@ -63,7 +63,7 @@ public class SandboxUserServiceImpl implements SandboxUserService {
   }
 
   @Override
-  public void deleteUser(Long userId) {
+  public void deleteSandboxUser(Long userId) {
     Optional<User> userById = userRepository.findUserById(userId);
 
     if (userById.isPresent()) {
