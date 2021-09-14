@@ -1,4 +1,4 @@
-package com.sandboxtask.task.service;
+package com.sandboxtask.task.service.user;
 
 import com.sandboxtask.task.dto.create.SandboxUserCreationCommand;
 import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;

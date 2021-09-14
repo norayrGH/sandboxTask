@@ -5,7 +5,7 @@ import com.sandboxtask.task.dto.response.SandboxUserResponse;
 import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;
 import com.sandboxtask.task.entity.User;
 import com.sandboxtask.task.mapper.SanBoxMapper;
-import com.sandboxtask.task.service.SandboxUserService;
+import com.sandboxtask.task.service.user.SandboxUserService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
