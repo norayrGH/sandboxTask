@@ -1,4 +1,4 @@
-# For runing!
+# For running!
 
 ## 1)  Go to project directory.
 ## 2)  Run *./gradlew clean build; docker-compose up --build* command in terminal.
