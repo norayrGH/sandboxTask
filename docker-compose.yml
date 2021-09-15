@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/sandbox
       - SPRING_DATASOURCE_USERNAME=sandbox
       - SPRING_DATASOURCE_PASSWORD=sandbox
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -16,6 +16,7 @@ services:
 
   PostgreSQL:
     image: postgres
+    user: root
     ports:
       - "5432:5432"
     environment:

@@ -5,4 +5,4 @@ COPY ${JAR_FILE} sandboxTask.jar
 EXPOSE 8080
 ENTRYPOINT [ "sh", \
              "-c", \
-             "exec java -Xmx768m -Xms256m -jar /task.jar"]
+             "exec java -Xmx768m -Xms256m -jar /sandboxTask.jar"]
