@@ -4,6 +4,7 @@ import com.sandboxtask.task.dto.SandboxUserKidsCommand;
 import com.sandboxtask.task.dto.create.SandboxUserCreationCommand;
 import com.sandboxtask.task.dto.response.SandboxKidResponse;
 import com.sandboxtask.task.dto.response.SandboxUserResponse;
+import com.sandboxtask.task.dto.update.SandboxUserUpdateCommand;
 import com.sandboxtask.task.entity.User;
 import com.sandboxtask.task.entity.UserKid;
 import com.sandboxtask.task.mapper.SanBoxMapper;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SandBoxKidController {
 
   private final SandboxUserKidsService sandboxUserKidsService;
+
 
   @GetMapping(value = "/kids")
   public Page<SandboxKidResponse> getAllKids(@PathVariable(name = "userId") Long userId, Pageable pageable) {

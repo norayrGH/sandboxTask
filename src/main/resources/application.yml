@@ -18,3 +18,15 @@ spring:
 
 server:
   port: ${SERVER_PORT:8080}
+
+app:
+  name: SandBox task API
+  api:
+    title: Spring Boot APIs
+    version: 1.0.0
+    description: Spring Boot APIs description
+    base-package: com.sandboxtask.task.controller
+    contact-name: Norayr Gharibyan
+    contact-email: norayrgh@gmail.com
+    swagger:
+      enable: true
