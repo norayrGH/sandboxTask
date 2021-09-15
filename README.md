@@ -1,4 +1,4 @@
-#For runing!
+# For runing!
 
 1) ## Go to roject directory.
 2) ## Run **docker-compose up -d** command in terminal.
